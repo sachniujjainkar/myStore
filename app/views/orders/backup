@@ -1,0 +1,10 @@
+<div class="field">
+  <%= form.label :user_id %>
+  <%= form.text_field :user_id %>
+</div>
+
+<div class="field">
+    <%= form.label :address_id %>
+    <%= form.text_field :address_id %>
+ </div>
+  

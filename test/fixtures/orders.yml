@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_no: MyString
+  delivery_date: 2020-01-08
+  special_instruction: MyString
+  tracking_number: 1
+  order-total: 9.99
+  discount: 9.99
+  product: one
+
+two:
+  order_no: MyString
+  delivery_date: 2020-01-08
+  special_instruction: MyString
+  tracking_number: 1
+  order-total: 9.99
+  discount: 9.99
+  product: two
