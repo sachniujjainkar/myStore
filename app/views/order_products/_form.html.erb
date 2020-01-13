@@ -16,15 +16,18 @@
     <%= form.number_field :quntity %>
   </div>
 
-  <div class="field">
-    <%= form.label :product_id %>
-    <%= form.text_field :product_id %>
-  </div>
+  <div class="field col-xs-12" >
+      <%= form.label :product_id %>
+      <%= form.select :product_id, options_for_select(Product.all.collect{|c| [c.name,c.id]}) %>
+  </div>   
+
 
   <div class="field">
     <%= form.label :order_id %>
     <%= form.text_field :order_id %>
   </div>
+  
+
 
   <div class="actions">
     <%= form.submit %>

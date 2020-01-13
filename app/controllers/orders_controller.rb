@@ -14,11 +14,13 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+    @products = Product.all
     @order = Order.new
   end
 
   # GET /orders/1/edit
   def edit
+    @products = Product.all
   end
 
   # POST /orders
@@ -65,10 +67,12 @@ class OrdersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
+      raise ActionController::RoutingError.new('Not Found') if @order.blank?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order_no, :delivery_date, :special_instruction, :tracking_number, :order_total, :discount, :product_id,:user_id,:address_id)
+      params.require(:order).permit(:order_no, :delivery_date, :special_instruction, :tracking_number, :order_total, :discount, :product_id,:user_id,:address_id, order_product_attributes: [:quantity, :product_id, :_destroy])
     end
+
 end

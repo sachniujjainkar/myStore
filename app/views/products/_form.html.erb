@@ -33,7 +33,7 @@
 
   <div class="field">
     <%= form.label :currency %>
-    <%= form.text_field :currency %>
+    <%= form.select :order_currency, options_for_select([['INR'], ['SGD'], ['USD'], ['AFN'], ['KHR'], ['CNY'], ['COP'], ['ISK']]) %>
   </div>
 
   <div class="field">

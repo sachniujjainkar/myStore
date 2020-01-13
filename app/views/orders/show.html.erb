@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+
+
 <p>
   <strong>Order no:</strong>
   <%= @order.order_no %>
@@ -35,5 +37,10 @@
   <%= @order.product_id %>
 </p>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<p>
+  <strong>Billing Address:</strong>
+  <%= @order.address.line1 %>
+</p>
+
+<Button class="btn btn-default"> <%= link_to 'Edit', edit_order_path(@order) %> </Button>
+<Button class="btn btn-default"> <%= link_to 'Back', orders_path %></Button>

@@ -1,44 +1,48 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+<div class="jumbotron">
 
-<p>
-  <strong>Sku:</strong>
-  <%= @product.sku %>
-</p>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4">
+        <p>
+          <td><%= image_tag(@product.images,:size=>'300x300') %></td>
+        </p>
+      </div>
+      <div class="col-sm-6" >
+        <p>
+          <strong>Name:</strong>
+          <%= @product.name %>
+        </p>
+        <p>
+          <strong>Description:</strong>
+          <%= @product.description %>
+        </p>
+        <p>
+          <strong>Inbox:</strong>
+          <%= @product.inbox %>
+        </p>
+        <p>
+          <strong>Sku:</strong>
+          <%= @product.sku %>
+        </p>
+        <p>
+          <strong>Quantity:</strong>
+          <%= @product.quantity %>
+        </p>
+        <p>
+          <strong>Unit Price:</strong>
+          <%= @product.currency %>  <%= @product.price %>
+        </p>
+      </div>
+</div>
+  <Button class="btn btn-default col-md-6">
+    <%= link_to 'Edit', edit_product_path(@product) %>
+  </Button>   
+  <Button class="btn btn-default col-md-6">
+    <%= link_to 'Back', products_path %>
+  <Button>   
+</div>
+</div>
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @product.quantity %>
-</p>
-
-<p>
-  <strong>Currency:</strong>
-  <%= @product.currency %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
-
-<p>
-  <strong>Images:</strong>
-  <%= @product.images %>
-</p>
-
-<p>
-  <strong>Inbox:</strong>
-  <%= @product.inbox %>
-</p>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>

@@ -8,3 +8,43 @@
     <%= form.text_field :address_id %>
  </div>
   
+
+
+
+<p>
+  <strong>Order no:</strong>
+  <%= @order.order_no %>
+</p>
+
+<p>
+  <strong>Delivery date:</strong>
+  <%= @order.delivery_date %>
+</p>
+
+<p>
+  <strong>Special instruction:</strong>
+  <%= @order.special_instruction %>
+</p>
+
+<p>
+  <strong>Tracking number:</strong>
+  <%= @order.tracking_number %>
+</p>
+
+<p>
+  <strong>Order_total:</strong>
+  <%= @order.order_total %>
+</p>
+
+<p>
+  <strong>Discount:</strong>
+  <%= @order.discount %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @order.product_id %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

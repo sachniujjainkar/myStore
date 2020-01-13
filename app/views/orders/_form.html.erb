@@ -15,12 +15,13 @@
 
     <div class="field col-xs-6">
       <%= form.label :order_no %>
-      <%= form.text_field :order_no, class:"form-control" %>
+      <%= form.text_field :order_no, id: :order_no,:value => "ORD-#{Order.last.id + 1}", :class=>"form-control",:required => true, :readonly => true%>
+      
     </div>
 
     <div class="field col-xs-6">
       <%= form.label :delivery_date %>
-      <%= form.date_select :delivery_date%>
+      <%= form.date_select :delivery_date,selected: Date.today, min: 5.days.ago, max: 1.year.from_now ,:class=>"form-control"%>
     </div>
 
     <div class="field col-xs-12">
@@ -29,13 +30,16 @@
     </div>
 
     <div class="field col-xs-6">
-      <%= form.label :tracking_number %>
-      <%= form.number_field :tracking_number, class:"form-control" %>
+
+    <%= form.label :tracking_number %>
+    <%= form.text_field :tracking_number, :value => "TR-#{rand(10..100)}-#{rand(100..1000)}", :class=>"form-control", :readonly=>true %>
+  
+            
     </div>
 
     <div class="field col-xs-6">
       <%= form.label :order_total %>
-      <%= form.text_field :order_total, class:"form-control" %>
+      <%= form.text_field :order_total, class:"form-control", readonly:false %>
     </div>
 
     <div class="field col-xs-6">
@@ -45,12 +49,12 @@
 
     <div class="field col-xs-12" >
       <%= form.label :product_id %>
-      <%= form.select :product_id, options_for_select(Product.all.collect{|c| [c.name,c.id]}) %>
+      <%= form.select :product_id, options_for_select(Product.all.collect{|c| [c.name,c.id]}),:class=>"form-control" %>
     </div>   
 
     <div class="field col-xs-2" >
       <%= form.label :user_id %>
-      <%= form.select :user_id, options_for_select(User.all.collect{|c| [c.firstname,c.id]})%>
+      <%= form.select :user_id, options_for_select(User.all.collect{|c| [c.firstname,c.id]}),:class=>"form-control"%>
     </div>   
 
     <div class="field col-xs-6" >
@@ -58,10 +62,13 @@
       <%= form.select :address_id, options_for_select(Address.all.collect{|c| [c.line1,c.id]})%>
     </div>   
 
-    <div class="actions col-xs-6">
+    <div class="actions col-md-6">
       <%= form.submit  class: 'btn btn-primary btn-lg' %>
     </div>
-
+    
+    <div class="actions col-md-6">
+      <%= link_to 'Back', orders_path, class:'col-xs-6 btn btn-primary btn-lg'%>
+    </div>     
   <div>
 <% end %>
 

@@ -1,0 +1,39 @@
+<nav class="navbar navbar-default">
+  
+  <iv class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      </button>
+      <%= link_to "MyShopee", root_path, class: "navbar-brand", id: "logo" %>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+     
+        <!--if login as Admin-->  
+        <% if logged_in? && current_user.admin? %>
+          <li><%= link_to 'New Admin User',signup_path %></li>
+          <li><%= link_to 'New Order',new_order_path %></li>
+          <li><%= link_to 'Orders',orders_path %></li>
+        <% end %> 
+
+        <!--if login as user-->
+      
+        <% if logged_in? && !current_user.admin? %>
+          <li><%= link_to 'New Order',new_order_path %></li>
+          <li><%= link_to 'Orders',orders_path %></li>
+          <li><%= link_to 'Profile',orders_path %></li>
+        <% end %> 
+
+        <% if logged_in? %>
+          <li><%= link_to 'Products',products_path %></li>
+          <li><%= link_to 'Log out', logout_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to 'Log in', login_path %></li>
+          <li><%= link_to 'Sign up', signup_path %></li>
+        <% end %>
+    </ul>
+  </div>
+</div>
+
+</nav>
+

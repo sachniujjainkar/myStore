@@ -1,15 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Myshopee</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>MyShopee</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<body>
 
-  <body>
-    <%= yield %>
-  </body>
+  <%= render 'layouts/navigation' %>
+  <!--if login as Admin-->  
+  <% if logged_in? && current_user.admin? %>
+    <div class="panel-group">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Welcome to Admin panel</div>
+        <div class="panel-body">
+          <div class="container">
+            <%= yield %>
+          </div>
+        </div>    
+      </div>         
+   </div>
+  <% end %>
+  <% if logged_in? && !current_user.admin? %>
+    <div class="panel-group">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Welcome to MyShopee</div>
+        <div class="panel-body">
+          <div class="container">
+            <%= yield %>
+          </div>
+        </div>    
+      </div>         
+    </div>
+  <% end %>
+  <% if !logged_in? %>
+    <div class="panel-group">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Login / Signup </div>
+        <div class="panel-body">
+          <div class="container">
+            <%= yield %>
+          </div>
+        </div>    
+      </div>         
+   </div>
+  <% end %>
+  
+  
+
+</body>
+
 </html>
+
+

@@ -61,6 +61,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_addresses
+    @user = User.find params[:id]
+    @addresses = @user.addresses
+
+    respond_to do |format|
+      format.json {render json: @addresses}
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -69,6 +79,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:firstname, :lastname, :email, :contact, :birthdate)
+      params.require(:user).permit(:firstname, :lastname, :email, :contact, :birthdate, :password, :admin,addresses_attributes: [:line1, :line2, :line3, :city, :district, :state, :country, :zip_code, :_destroy, :id])
     end
 end

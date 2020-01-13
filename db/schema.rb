@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_08_094421) do
+ActiveRecord::Schema.define(version: 2020_01_13_124349) do
 
   create_table "addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "line1"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_01_08_094421) do
     t.bigint "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "total", precision: 10
     t.index ["order_id"], name: "index_order_products_on_order_id"
     t.index ["product_id"], name: "index_order_products_on_product_id"
   end
@@ -41,7 +42,7 @@ ActiveRecord::Schema.define(version: 2020_01_08_094421) do
     t.string "order_no"
     t.date "delivery_date"
     t.string "special_instruction"
-    t.integer "tracking_number"
+    t.string "tracking_number"
     t.decimal "order_total", precision: 10
     t.decimal "discount", precision: 10
     t.string "order_type"
@@ -77,6 +78,8 @@ ActiveRecord::Schema.define(version: 2020_01_08_094421) do
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
+    t.boolean "admin", default: false
   end
 
   add_foreign_key "addresses", "users"

@@ -6,17 +6,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-5.times do
 
+# Script to make fake entries in product table
+1000.times do
     Product.create([{
-    firstname:Faker::Name.name,    
-    description:Faker::String.random,
+    name:Faker::Commerce.product_name,    
+    description:Faker::ChuckNorris.fact,
     sku:Faker::Code.nric,
-    quantity:Faker::Number.decimal_part(digits: 2),
+    quantity:22,
     currency:Faker::Currency.code, 
-    price:Faker::Number.decimal(l_digits: 3),
-    imges:Faker::Avatar.image(slug: "my-own-slug", size: "50x50", format: "jpg"),
-    inbox:Faker::string.random
+    price:Faker::Commerce.price,
+    images:"https://images.unsplash.com/photo-1535498730771-e735b998cd64?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+    inbox:'Details contents of package'
     }])
-
 end
+
+
