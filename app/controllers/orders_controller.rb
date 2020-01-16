@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :require_user
+  # require './app/pdf/order_pdf'
+
   # before_action :require_same_user, only [:edit, :show, :update ,:destroy]
   
   # GET /orders
@@ -22,7 +24,7 @@ class OrdersController < ApplicationController
       format.html
       format.pdf do
         pdf = Prawn::Document.new
-        pdf.text "Hellow World!"
+        pdf = OrderPdf.new
         send_data pdf.render 
        end
     end
