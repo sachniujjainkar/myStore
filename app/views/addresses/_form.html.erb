@@ -10,6 +10,11 @@
       </ul>
     </div>
   <% end %>
+  
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, :value=> "#{current_user.id}", :readonly=>true ,:disabled=>true%>
+  </div>
 
   <div class="field">
     <%= form.label :line1 %>
@@ -49,11 +54,6 @@
   <div class="field">
     <%= form.label :zip_code %>
     <%= form.number_field :zip_code %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
   </div>
 
   <div class="actions">

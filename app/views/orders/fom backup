@@ -1,0 +1,39 @@
+<!--
+<h3>Products</h3>
+<div class="row order_products" id="hello">
+  <div class="col-md-2"><strong>Name</strong></div>
+  <div class="col-md-2"><strong>Description</strong></div>
+  <div class="col-md-2"><strong>SKU</strong></div>
+  <div class="col-md-2"><strong>Quantity</strong></div>
+  <div class="col-md-2"><strong>Price</strong></div>
+  <div class="col-md-2"><strong>Image</strong></div>
+  <hr>
+
+</div>
+
+<h3>Search Product</h3>
+<div class="row">
+  <div class="col-md-1"><strong>Name:</strong></div>
+  <div class="col-md-2"><%= text_field_tag :search_name, '',id: :search_by_name %></div>
+  <div class="col-md-2"><%= link_to 'Search Product', '#', class: 'btn btn-sm btn-default search_product' %></div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>SKU</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+
+    <tbody class="product_serched_by_name">
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+    <%= form.submit :class => "btn btn-befault", method: :delete, data: { confirm: 'Are you want to create Order?' } %>
+</div> -->

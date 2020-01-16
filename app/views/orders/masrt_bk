@@ -1,0 +1,248 @@
+
+
+<script type="text/javascript">
+$(document).on("change", '#order_user_id', function() {
+var user_id =  this.value;
+
+
+  $.ajax({
+     url: "/users/"+user_id+"/get_addresses",
+     type: "GET",
+     dataType: "json",
+     complete: function() {},
+     success: function(data) {
+      var x = document.getElementById("order_address_id");
+             x.innerHTML = '<option value="">Please select</option>'
+       for (i = 0; i < data.length; i++) {
+
+             var option = document.createElement("option");
+              option.text = data[i]['line1'];
+              option.value = data[i]['id']
+              x.add(option);
+
+
+        }
+
+     },
+     error: function(data) {
+       alert("error after selecting user");
+     }
+   });
+});
+
+
+</script>
+<script type="text/javascript">
+   $(document).ajaxComplete(function(){
+    $('.add_product').click(function(evt){
+      var id = $(this).attr("id")
+       $(this).closest('tr').hide()
+       
+       $.ajax({
+                url: "/products/" + id, 
+                type: "GET",
+                success: function(data){
+                }         
+    });
+
+       evt.preventDefault()
+       
+    });
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.remove_fields').click(function(event){
+    $(this).prev('input[type=hidden]').val('1')
+    $(this).closest('tr').hide()
+    $(this).closest('fieldset').hide()
+    event.preventDefault()
+  });
+});
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.search_product').click(function(evt){
+         var sku = $('#search_by_name').val()
+    
+       $.ajax({
+                 url: "/products/" + name +"/get_product_by_name", 
+                type: "GET",
+                sucess: function(data){
+                }       
+            });
+       evt.preventDefault()
+    });
+  });
+</script>
+
+
+
+
+<%= form_with(model: order, local: true) do |form| %>
+
+<% if order.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+    <ul>
+    <% order.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+  <div class="row">
+  
+    <h3>Order Details</h3>
+    
+    <div class="field col-xs-6">
+      <%= form.label :order_no %>
+      <%= form.text_field :order_no, id: :order_no,:value => "ORD-#{Order.last.id + 1}", :class=>"form-control",:required => true, :readonly => true%>
+      
+    </div>
+
+    <div class="field col-xs-6">
+      <%= form.label :delivery_date %>
+      <br>  
+      <br>
+      <%= form.date_select :delivery_date,selected: Date.today, min: 5.days.ago, max: 1.year.from_now ,:class=>"form-control"%>
+    </div>
+
+    <div class="field col-xs-6">
+      <%= form.label :special_instruction %>
+      <%= form.text_field :special_instruction, class:"form-control" %>
+    </div>
+
+    <div class="field col-xs-6">
+      <%= form.label :tracking_number %>
+      <%= form.text_field :tracking_number, :value => "TR-#{rand(10..100)}-#{rand(100..1000)}", :class=>"form-control", :readonly=>true %>         
+    </div>
+
+    <div class="field col-xs-6">
+      <%= form.label :order_total %>
+      <%= form.text_field :order_total, class:"form-control", readonly:false %>
+    </div>
+
+    <div class="field col-xs-6">
+      <%= form.label :discount %>
+      <%= form.text_field :discount, class:"form-control" %>
+    </div>
+  </div> 
+    
+  <div>
+    <hr>
+     
+    <h3>Products</h3>
+    <div class="row order_products" id="selectedProducts">
+      <div class="col-md-2"><strong>Name</strong></div>
+      <div class="col-md-2"><strong>Description</strong></div>
+      <div class="col-md-2"><strong>SKU</strong></div>
+      <div class="col-md-2"><strong>Quantity</strong></div>
+      <div class="col-md-2"><strong>Price</strong></div>
+      <div class="col-md-2"><strong>Image</strong></div>
+      <hr>
+
+    </div>
+
+    <h3>Search Product</h3>
+    <div class="row">
+      <div class="col-md-1"><strong>Name:</strong></div>
+      <div class="col-md-2"><%= text_field_tag :search_name, '',id: :search_by_name %></div>
+      <div class="col-md-2"><%= link_to 'Search Product', '#', class: 'btn btn-sm btn-default search_product' %></div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>SKU</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Image</th>
+          </tr>
+        </thead>
+
+        <tbody class="product_serched_by_name">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="CustomerDetails border">
+      <hr>
+      <h3>Customer Details</h3>
+        <div class="col-md-4">
+          <%= form.label :user_id, class: "required" %>
+          <%= form.select :user_id, User.all.collect { |user| [user.firstname + " " + user.lastname , user.id]}, {:prompt => true}, {id: 'order_user_id'}%>
+        </div>
+               
+        <div class="col-md-4">
+          <%= form.label :address_id, class: "required" %>
+          <%= form.grouped_collection_select :address_id, User.order(:id), :addresses, :id, :id, :line1, {:prompt => true}, { id: 'order_address_id'} %>
+        </div>      
+
+        <!--Address Details-->
+      
+        <h3>Address Details</h3>
+      
+        <div class="row">
+            <div class="col-md-4">
+              <div class="col-md-4"><%= label_tag :line1 %></div>
+              <div class="col-md-6"><%= text_field_tag :line1, "", :disabled =>true %></div>
+            </div>
+            <div class="col-md-4">
+              <div class="col-md-4"><%= label_tag :line2 %></div>
+              <div class="col-md-6"><%= text_field_tag :line2, "", :disabled=>true %></div>
+            </div>
+            <div class="col-md-4">
+              <div class="col-md-4"><%= label_tag :line3 %></div>
+              <div class="col-md-6"><%= text_field_tag :line3, "", :disabled=>true %></div>
+            </div>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="col-md-4"><%= label_tag :city %></div>
+              <div class="col-md-6"><%= text_field_tag :city, "", :disabled=>true %></div>
+            </div>
+            <div class="col-md-4">
+              <div class="col-md-4"><%= label_tag :state %></div>
+            <div class="col-md-6"><%= text_field_tag :state, "", :disabled=>true %></div>
+            </div>
+            <div class="col-md-4">
+              <div class="col-md-4"><%= label_tag :country %></div>
+              <div class="col-md-6"><%= text_field_tag :country, "", :disabled=>true %></div>
+            </div>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="col-md-4"><%= label_tag :postal_code %></div>
+              <div class="col-md-6"><%= text_field_tag :postal_code, "", :disabled=>true %></div>
+            </div>
+            <div class="col-md-4">
+              <div class="col-md-4"><%= label_tag :contact_no %></div>
+              <div class="col-md-6"><%= text_field_tag :contact_no, "", :disabled=>true %></div>
+            </div>
+            <div class="col-md-4">
+              <div class="col-md-4"><%= label_tag :email %></div>
+              <div class="col-md-6"><%= email_field_tag :email, "", :disabled=>true %></div>
+            </div>
+          </div>
+
+    </div>  
+
+<div class="row">
+    <%= form.submit :class => "btn btn-befault", method: :delete, data: { confirm: 'Are you want to create Order?' } %>
+</div>
+<% end %>
+<hr>
+
+
+

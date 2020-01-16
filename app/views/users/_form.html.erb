@@ -1,58 +1,126 @@
 <%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <% if user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  
+        <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-      <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <hr>    
+    <h3>User Details</h3>
+    <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="col-md-3"><%= form.label :firstname, class: "required" %></div>
+        <div class="col-md-6"><%= form.text_field :firstname, id: :user_firstname, :required => true %></div>
+      </div>
+  
+      <div class="col-md-6">
+        <div class="col-md-3"><%= form.label :lastname, class: "required" %></div>
+        <div class="col-md-6"><%= form.text_field :lastname, id: :user_lastname, :required => true %></div>
+      </div>
     </div>
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="col-md-3"><%= form.label :email, class: "required" %></div>
+        <div class="col-md-6"><%= form.email_field :email, id: :user_email, :required => true %></div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="col-md-3"><%= form.label :contact, class: "required" %></div>
+        <div class="col-md-6"><%= form.text_field :contact, id: :user_contact, :required => true %></div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="col-md-3"><%= form.label :birthdate, class: "required" %></div>
+        <div class="col-md-6"><%= form.date_select :birthdate, id: :user_birtdate, :start_year => Date.current.
+      year, :end_year => 1991, :required => true %></div>
+      </div>
+      <div class="col-md-6">
+        <div class="col-md-3"><%= form.label :password, class: "required" %></div>
+        <div class="col-md-6"><%= form.password_field :password_digest, id: :user_password_digest%></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="col-md-3"><%= form.label :Role, class: "required" %></div>
+        <div class="col-md-6"><%= form.check_box :role, id: :user_role %></div>
+      </div>
+    </div>
+    
+    <hr>    
+    
+    <!--
+    
+    <h3>Address</h3>
+
+    <%= form.fields_for :addresses do |form| %>
+  
+      <div class="row">
+        <div class="col-md-4">
+          <div class="col-md-4"><%= form.label :line1, class: "required" %></div>
+          <div class="col-md-6"><%= form.text_field :line1, id: :address_line1, :required => true %></div>
+        </div>
+        <div class="col-md-4">
+          <div class="col-md-4"><%= form.label :line2 %></div>
+          <div class="col-md-6"><%= form.text_field :line2, id: :address_line2 %></div>
+        </div>
+        <div class="col-md-4">
+          <div class="col-md-4"><%= form.label :line3 %></div>
+          <div class="col-md-6"><%= form.text_field :line3, id: :address_line3 %></div>
+        </div>
+      </div>
+      <br>
+    
+      <div class="row">
+        <div class="col-md-4">
+          <div class="col-md-4"><%= form.label :city, class: "required" %></div>
+          <div class="col-md-6"><%= form.text_field :city, id: :address_city, :required => true %></div>
+        </div>
+        <div class="col-md-4">
+          <div class="col-md-4"><%= form.label :state, class: "required" %></div>
+         <div class="col-md-6"><%= form.text_field :state, id: :address_state, :required => true %></div>
+        </div>
+        <div class="col-md-4">
+          <div class="col-md-4"><%= form.label :country, class: "required" %></div>
+          <div class="col-md-6"><%= form.text_field :country, id: :address_country, :required => true %></div>
+        </div>
+      </div>
+      <br>
+    
+      <div class="row">
+        <div class="col-md-4">
+          <div class="col-md-4"><%= form.label :zip_code %></div>
+          <div class="col-md-6"><%= form.number_field :zip_code, id: :address_zip_code %></div>
+        </div>
+        
+      </div>
+      <br>
+    
+    <% end %> --> 
+
+
+          
+
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="col-md-6 action"><%= form.submit %></div>
+      </div>
+    </div>
+  </div>
+    
+   
   <% end %>
 
-  <hr>
- 
 
 
-  <div class="form-group">
-    <%= form.label :firstname %>
-    <%= form.text_field :firstname %>
-  </div>
-
-  <div class="field">
-    <%= form.label :lastname %>
-    <%= form.text_field :lastname %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contact %>
-    <%= form.number_field :contact %>
-  </div>
-
-  <div class="field">
-    <%= form.label :birthdate %>
-    <%= form.date_select :birthdate %>
-  </div>
-
-  <div class="field">
-    <%= form.label:password %>
-    <%= form.password_field :password_digest %>
-  </div>
-
-  <div class="field">
-    <%= form.label:role %>
-    <%= form.check_box :admin %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-
-<%end%>
-    

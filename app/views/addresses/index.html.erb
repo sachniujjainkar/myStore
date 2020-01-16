@@ -18,6 +18,14 @@
     </tr>
   </thead>
 
+  <% if logged_in? && current_user.admin? %> 
+    <% @addresses = Address.all%>
+  <% else %>
+    <% @addresses = Address.where(:user_id => current_user.id)%>
+  <% end %>
+
+
+
   <tbody>
     <% @addresses.each do |address| %>
       <tr>
@@ -40,4 +48,4 @@
 
 <br>
 
-<%= link_to 'New Address', new_address_path %>
+<Button class="btn btn-default"><%= link_to 'New Address', new_address_path %></Button>

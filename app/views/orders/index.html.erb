@@ -6,6 +6,32 @@
 <Button class="btn btn-default float-right"><%= link_to 'New Order', new_order_path %></button>
 <hr>
 
+# Search for Orders
+<script>
+  $(document).ready(function(){
+      $('.search').on('keyup',function(){
+          var searchTerm = $(this).val().toLowerCase();
+          $('#orderTable tbody tr').each(function(){
+              var lineStr = $(this).text().toLowerCase();
+              if(lineStr.indexOf(searchTerm) === -1){
+                  $(this).hide();
+              }else{
+                  $(this).show();
+              }
+          });
+      });
+  });
+</script> 
+
+
+# <div class="form-group pull-right">
+#     <input type="text" class="search form-control" placeholder="Search Orders">
+# </div>
+
+<% if !logged_in? %> 
+  
+<% end %>
+
 <% if logged_in? && current_user.admin? %> 
   <% @orders = Order.all%>
 <% else %>
@@ -13,7 +39,7 @@
 <% end %>
 
 <h2>Total Orders:<%= @orders.all.count %> </h2>
-<table class="table table-bordered">
+<table class="table table-bordered" id="orderTable">
 <thead class="thead-dark">
     <tr>
       <th>Order no</th>
@@ -39,10 +65,9 @@
         <td><%= order.discount %></td>
         <td><%= order.product_id %></td>
         <td><%= order.user.firstname %></td>
-        <td><%= link_to 'Show', order %></td>      
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        
+
+        <td><%= link_to content_tag(:span, "",:class => "glyphicon glyphicon-zoom-in"), order %></td>      
+        <td><%= link_to 'Edit', edit_order_path(order) %></td><td><%= link_to content_tag(:span, "",:class => "glyphicon glyphicon-trash", :style =>"color:red"), order,  method: :delete, data: { confirm: 'Are you sure?' } %></td>
       
         </tr>
     <% end %>

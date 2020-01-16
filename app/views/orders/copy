@@ -4,7 +4,7 @@
 $(document).on("change", '#order_user_id', function() {
 var user_id =  this.value;
 
-//selectuser to get address list
+
   $.ajax({
      url: "/users/"+user_id+"/get_addresses",
      type: "GET",
@@ -30,11 +30,55 @@ var user_id =  this.value;
    });
 });
 
+
+</script>
+<script type="text/javascript">
+   $(document).ajaxComplete(function(){
+    $('.add_product').click(function(evt){
+      var id = $(this).attr("id")
+       $(this).closest('tr').hide()
+       
+       $.ajax({
+                url: "/products/" + id, 
+                type: "GET",
+                success: function(data){
+                }         
+    });
+
+       evt.preventDefault()
+       
+    });
+  });
 </script>
 
 <script type="text/javascript">
-    $('#div_id').html("<%= render :partial => 'my_partial' %>");
+$(document).ready(function(){
+  $('.remove_fields').click(function(event){
+    $(this).prev('input[type=hidden]').val('1')
+    $(this).closest('tr').hide()
+    $(this).closest('fieldset').hide()
+    event.preventDefault()
+  });
+});
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.search_product').click(function(evt){
+         var sku = $('#search_by_name').val()
+    
+       $.ajax({
+                 url: "/products/" + name +"/get_product_by_name", 
+                type: "GET",
+                sucess: function(data){
+                }       
+            });
+       evt.preventDefault()
+    });
+  });
+</script>
+
+
 
 
 <%= form_with(model: order, local: true) do |form| %>
@@ -91,71 +135,55 @@ var user_id =  this.value;
   </div> 
   
   <div>
-    <hr>
-  <!--Form for Product details-->
   <div>
-
     <h3>Products</h3>
-
-    <%= form.fields_for :order_products do |f| %>
-      <div class="col-md-6">
-        <div class="field" >
-          <%= f.label :product_id %>
-          <%= f.select :product_id, options_for_select(Product.all.collect{|c| [c.name,c.id]}),:class=>"form-control" %>
+    <div class="col-md-6">
+      <%= form.fields_for :orderproducts do |f| %>
+      <div class="field" >
+        <%= f.label :product_id %>
+        <%= form.select :product_id, options_for_select(Product.all.collect{|c| [c.name,c.id]}),:class=>"form-control" %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :quantity %>
+          <%= f.text_field :quantity,class:"form-control" %>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="field">
-          <%= f.label :quntity %>
-          <%= f.text_field :quntity,class:"form-control" %>
-        </div>
-      </div> 
-    
-    <% end %> 
-
-    <div id = "div_id">
-    
-
-    </div>
-    <%= link_to "Add Product", order, :remote => true %>
-
-
-    
-    
-
+    </div>  
+      <% end %> 
   </div>    
-
+  
   
   <div class="productDetails">
    <div>
    <h3>Products Details</h3>
-   
-   <p>selected products details with remove </p>
-  
-  </div>    
+    <p>selected products details with remove </p>
+ </div>    
   
 
    </div>     
   <div class="CustomerDetails">
-    <hr>
-    <h3>Customer Details</h3>    
-      <div class="field">
-        <%= form.label :user_id %>
-        <%= form.text_field :user_id, :value=>current_user.id ,class:"form-control",readonly:true%>
-      </div>      
-      <div class="col-md-4">
-        <%= form.label :address_id, class: "required" %>
-        <%= form.grouped_collection_select :address_id, User.order(:id), :addresses, :id, :id, :line1, {:prompt => true}, { id: 'order_address_id'} %>
-        
-      </div>      
+      <hr>
+      <h3>Customer Details</h3>
+        <div class="col-md-4">
+          <%= form.label :user_id, class: "required" %>
+          <%= form.select :user_id, User.all.collect { |user| [user.firstname + " " + user.lastname , user.id]}, {:prompt => true}, {id: 'order_user_id'}%>
+        </div>
+               
+        <div class="col-md-4">
+          <%= form.label :address_id, class: "required" %>
+          <%= form.grouped_collection_select :address_id, User.order(:id), :addresses, :id, :id, :line1, {:prompt => true}, { id: 'order_address_id'} %>
+        </div>      
 
-      <!--Address Details-->
+        <!--Address Details-->
       
-  </div>  
+    </div>  
 
-  <div class="row">
+<div class="row">
     <%= form.submit :class => "btn btn-befault", method: :delete, data: { confirm: 'Confirm Order?' } %>
-  </div>
+</div>
 <% end %>
 <hr>
 

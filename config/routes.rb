@@ -2,10 +2,17 @@ Rails.application.routes.draw do
   root :to => "pages#home"
   resources :pages
   resources :addresses
-  resources :users
+  # resources :users
   resources :order_products
   resources :orders
   resources :products
+  
+  resources :users do
+    member do
+      get 'get_addresses'
+    end
+  end
+  
 
 
   get 'signup', to: 'users#new'
@@ -16,3 +23,9 @@ Rails.application.routes.draw do
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
+
+
+  
+ 
+
+ 

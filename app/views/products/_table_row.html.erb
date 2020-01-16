@@ -1,0 +1,10 @@
+<tr id="<%= @product.id %>">
+	<td><%= image_tag(@product.image_url(:thumb).to_s) %></td>
+	<td><%= @product.name %></td>
+	<td><%= @product.sku %></td>
+	<td><%= @product.price %></td>
+	<td><%= @product.quantity %></td>
+    <td><%= @product.description %></td>
+    <td><%= @product.inbox %> </td>
+	<td><%= link_to 'Add to product', '#',class: 'btn btn-sm btn-success add_product', id: @product.id %></td>
+</tr>

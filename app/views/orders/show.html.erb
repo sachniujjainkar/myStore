@@ -1,46 +1,119 @@
 <p id="notice"><%= notice %></p>
 
+<div class="container-fluid">
+   <h1>Order Details</h1>
+   <hr>
+   <div class="row">
+    <div class="col-sm-4">
 
 
-<p>
-  <strong>Order no:</strong>
-  <%= @order.order_no %>
-</p>
+      <p>
+        <strong>Customer name:</strong>
+        <%= @order.user_id %>
+      </p>
 
-<p>
-  <strong>Delivery date:</strong>
-  <%= @order.delivery_date %>
-</p>
+      <p>
+        <strong>Order no:</strong>
+        <%= @order.order_no %>
+      </p>
+    
+      <p>
+        <strong>Delivery date:</strong>
+        <%= @order.delivery_date %>
+      </p>
+    
+      <p>
+        <strong>Special instruction:</strong>
+        <%= @order.special_instruction %>
+      </p>
+    
+      <p>
+       <strong>Tracking number:</strong>
+       <%= @order.tracking_number %>
+      </p>
+    
+     
+      <p>
+        <strong>Discount:</strong>
+        <%= @order.discount %>
+      </p>
+       
+    </div>
+    <div class="col-sm-4" >
+      <p>
+        <strong>Billing Address:</strong><br>
+        <%= @order.address.line1 %><br>
+        <%= @order.address.line2 %>,<br>
+        <%= @order.address.line3 %>,<br>
+        <%= @order.address.city%>,
+        <%= @order.address.district %>,
+        <%= @order.address.state %><br>
+        <%= @order.address.country %>,
+        <%= @order.address.zip_code %>
+      </p>
+    </div>
+    <div class="col-sm-4" >
+      <p>
+        <strong>Shipping Address:</strong><br>
+        <%= @order.address.line1 %><br>
+        <%= @order.address.line2 %>,<br>
+        <%= @order.address.line3 %>,<br>
+        <%= @order.address.city%>,
+        <%= @order.address.district %>,
+        <%= @order.address.state %><br>
+        <%= @order.address.country %>,
+        <%= @order.address.zip_code %>
+      </p> 
+    </div>
+   </div>
+  
+  <br>
+  <div>
+    <h4>Products</h4>
+    <p>
+      <strong>Product:</strong>
+      <%= @order.product_id %>
+     ,id<%= @order.order_products.first.product_id%>
+     <strong>Product Quntity:</strong>
+     <%= @order.order_products.first.quntity%>
 
-<p>
-  <strong>Special instruction:</strong>
-  <%= @order.special_instruction %>
-</p>
 
-<p>
-  <strong>Tracking number:</strong>
-  <%= @order.tracking_number %>
-</p>
-
-<p>
-  <strong>Order_total:</strong>
-  <%= @order.order_total %>
-</p>
-
-<p>
-  <strong>Discount:</strong>
-  <%= @order.discount %>
-</p>
-
-<p>
-  <strong>Product:</strong>
-  <%= @order.product_id %>
-</p>
-
-<p>
-  <strong>Billing Address:</strong>
-  <%= @order.address.line1 %>
-</p>
-
+  </div>    
+  
+    </p>
+  </div>
+  <hr>
+  <div align=right>
+    <p>
+      <strong>Total:</strong>
+      <%= @order.order_total+@order.discount %>
+    </p>
+    <p>
+      <strong>Discount:</strong>
+      <%= @order.discount %>
+    </p>
+      <h4><b>Sub Total:</b>  
+        <%= @order.order_total %> 
+      </h4>
+        <%#= @order.products.order_currency %>
+  </div>
+  <hr>
+  <div>
+    <h4><b>Log</b><h4>
+    <p>
+      <strong>Created at:</strong>
+      <%= @order.created_at %>
+    </p>
+    <p>
+      <strong> Updated at:</strong>
+      <%= @order.updated_at %>
+    </p>
+    <p>
+      updated
+      <%= distance_of_time_in_words(@order.created_at, @order.updated_at)  %>
+    </p>
+  </div>
+  <br>
 <Button class="btn btn-default"> <%= link_to 'Edit', edit_order_path(@order) %> </Button>
 <Button class="btn btn-default"> <%= link_to 'Back', orders_path %></Button>
+</div>

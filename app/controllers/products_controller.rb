@@ -5,8 +5,8 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     # added pagination as per_page:5
-    @products = Product.all.paginate(page: params[:page], per_page:5)
-    # @products = Product.search(params[:search]).paginate(page: params[:page], per_page:5)   
+    # @products = Product.all.paginate(page: params[:page], per_page:5)
+    @products = Product.search(params[:search]).paginate(page: params[:page], per_page:5)   
   end
 
   # GET /products/1
@@ -61,14 +61,6 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  #To search product by name
-  def get_product_by_name
-    @product = Product.find_by_name(params[:id])
-      respond_to do |format|
-        format.js
-      end
   end
 
   private

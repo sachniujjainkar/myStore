@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-    has_many :orders
-    has_many :addresses
+    has_many :orders, dependent: :destroy
+    has_many :addresses, dependent: :destroy
     
 #Validations
     validates :firstname, presence: true,
@@ -11,6 +11,11 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false },
     format: { with: VALID_EMAIL_REGEX }
 
+
+    accepts_nested_attributes_for :addresses, allow_destroy: true
+    
     #to use bcrypt
     has_secure_password
+
+    
 end

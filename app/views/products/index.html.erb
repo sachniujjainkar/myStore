@@ -2,15 +2,13 @@
 
 <h1>Products</h1>
 
-<div class="search">
-  <%= form_tag products_path, :method => 'get', :id => "products_search" do %>
-    <p>
-      <%= text_field_tag :search, params[:search] %>
-      <%= submit_tag "Search", :name => nil %>
-    </p>
-    <div id="products"><%= render 'products' %></div>
-    <% end %>
-</div>  
+
+<%=form_for products_path , :method =>'get' do %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag "search" %>
+<% end %>
+ 
+
 
 <!-- if user is admin then able to add new products -->
 
@@ -22,7 +20,7 @@
   <%end%>
 </div>
 <hr>
-<table class="table table-bordered">
+<table class="table table-bordered" id="productTable">
 <thead class="thead-dark">
     <tr>
       <th>Name</th>
@@ -48,11 +46,11 @@
         <td><%= product.price %></td>
         <td><%= image_tag(product.images,:size=>'50x50') %></td>
         <td><%= product.inbox %></td>
-        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to content_tag(:span, "",:class => "glyphicon glyphicon-zoom-in"), product %></td>
         <!-- if admin then only able to edit and destroy products -->
         <% if logged_in? && current_user.admin? %> 
-               <td><%= link_to 'Edit', edit_product_path(product) %></td> 
-              <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+             <td><%= link_to content_tag(:span, "",:class => "glyphicon glyphicon-pencil", :style =>"color:blue"), edit_product_path(product) %></td> 
+             <td><%= link_to content_tag(:span, "",:class => "glyphicon glyphicon-trash", :style =>"color:red"), product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%end%>
       </tr>
     <% end %>
