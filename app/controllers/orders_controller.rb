@@ -16,6 +16,17 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+
+    respond_to do |format|
+      # // some other formats like: format.html { render :show }
+      format.html
+      format.pdf do
+        pdf = Prawn::Document.new
+        pdf.text "Hellow World!"
+        send_data pdf.render 
+       end
+    end
+
   end
 
   # GET /orders/new

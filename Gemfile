@@ -9,6 +9,8 @@ gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap' 
 gem 'jquery-rails'
 gem 'bcrypt'
+gem 'prawn'
+gem 'prawn-table'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.1'

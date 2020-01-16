@@ -111,19 +111,17 @@ var user_id =  this.value;
         </div>
       </div> 
     
-    <% end %> 
-
-
-    <!-- for multiple dropdown list -->
     
-    <div id = "div_id">
-    
+     <%= f.fields_for :orders do |builder| %>
+        <%= render 'order_product_fields', f: builder %>
+      <% end %>
+   
+      <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-plus"></span>
+        <%= link_to_add_fields "Add product", f, :f %>
+      </Button>
 
-    </div>
-    <%= link_to "Add Product", order, :remote => true %>
-
-
-    
+     <% end %>
     
 
   </div>    

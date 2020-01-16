@@ -114,6 +114,21 @@
     </p>
   </div>
   <br>
-<Button class="btn btn-default"> <%= link_to 'Edit', edit_order_path(@order) %> </Button>
-<Button class="btn btn-default"> <%= link_to 'Back', orders_path %></Button>
-</div>
+ 
+   
+  <button type="button" class="btn btn-default btn-sm">
+    <span class="glyphicon glyphicon-print"></span>
+    <%= link_to 'Print Invoice', order_path(@order,format:"pdf") %>
+  </button>
+
+  <button type="button" class="btn btn-default btn-sm">
+    <span class="glyphicon glyphicon-edit"></span> 
+    <%= link_to 'Edit Order', edit_order_path(@order) %> 
+  </Button>
+
+  <button type="button" class="btn btn-default btn-sm">
+    <span class="glyphicon glyphicon-backward"></span>
+    <%= link_to 'Back', orders_path %></Button>
+  </button>
+
+  </div>
