@@ -13,22 +13,11 @@ class Order < ApplicationRecord
 
 
   def updateInventory
-    byebug
-    old =  Order.first.order_products.first.product.quantity 
-    new = Order.first.order_products.first.quntity
+    oldQ =  Order.first.order_products.first.product.quantity 
+    newQ = Order.first.order_products.first.quntity
     # Order.first.order_products.first.product.quantity =  Order.first.order_products.first.product.quantity - Order.first.order_products.first.quntity
-    updated = old -new 
-    Product.update_counters params[:id], :quantity => updated
-    byebug
+    updatedQ = oldQ -newQ 
+    Product.update_counters params[:id], :quantity => updatedQ
   end  
-
-
-  # def self.search(search)
-  #   if search
-  #     where('name LIKE ?', "%#{search}%")
-  #   else
-  #     all
-  #   end
-  # end
 
 end

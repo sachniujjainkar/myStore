@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  # before_action :require_user
+  before_action :require_user
   # before_action :require_same_user, only [:edit, :show, :update ,:destroy]
   
   # GET /orders
