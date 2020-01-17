@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :require_user, except: [:new, :create]
+  # before_action :require_same_user, only [:edit, :show, :update ,:destroy]
+  
   # GET /users
   # GET /users.json
   def index
@@ -82,6 +84,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:firstname, :lastname, :email, :contact, :birthdate, :password_digest, :admin,addresses_attributes: [:line1, :line2, :line3, :city, :district, :state, :country, :zip_code, :_destroy, :id])
+      params.require(:user).permit(:firstname, :lastname, :email, :contact, :birthdate, :password, :admin,addresses_attributes: [:line1, :line2, :line3, :city, :district, :state, :country, :zip_code, :_destroy, :id])
     end
 end

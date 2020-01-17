@@ -2,4 +2,8 @@
 
 <%= render 'form', product: @product %>
 
-<%= link_to 'Back', products_path %>
+
+<button type="button" class="btn btn-default btn-sm">
+    <span class="glyphicon glyphicon-backward"></span>
+    <%= link_to 'Back', products_path %>
+</button>

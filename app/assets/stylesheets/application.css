@@ -14,3 +14,22 @@
  *= require_self
  */
 
+
+ .footer {
+     color: aliceblue;
+    margin: auto;
+    font-style: bold;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:black;
+    color: white;
+ }
+
+
+
+ body {
+    background-image: url("/assets/hbg.gif");
+    background-color: #cccccc;
+   }

@@ -38,9 +38,9 @@
         <td><%= address.country %></td>
         <td><%= address.zip_code %></td>
         <td><%= address.user_id  %></td>
-        <td><%= link_to 'Show', address %></td>
-        <td><%= link_to 'Edit', edit_address_path(address) %></td>
-        <td><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to content_tag(:span, "",:class => "glyphicon glyphicon-zoom-in"), address %></td>
+        <td><%= link_to content_tag(:span, "",:class => "glyphicon glyphicon-pencil", :style =>"color:blue"), edit_address_path(address)%></td>
+        <td><%= link_to content_tag(:span, "",:class => "glyphicon glyphicon-trash", :style =>"color:red"), address,  method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<div>
 <p>
   <strong>Line1:</strong>
   <%= @address.line1 %>
@@ -45,5 +45,5 @@
   <%= @address.user_id %>
 </p>
 
-<%= link_to 'Edit', edit_address_path(@address) %> |
-<%= link_to 'Back', addresses_path %>
+<Button class="btn btn-default"> <%= link_to 'Edit', edit_address_path(@address) %> </Button>
+<Button class="btn btn-default"> <%=link_to 'Back', address_path %> </Button>
