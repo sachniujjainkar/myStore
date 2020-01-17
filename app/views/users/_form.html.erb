@@ -13,7 +13,7 @@
 
       <hr>    
     <h3>User Details</h3>
-    <div class="container">
+    <div class="container t">
     <div class="row">
       <div class="col-md-6">
         <div class="col-md-3"><%= form.label :firstname, class: "required" %></div>
@@ -34,7 +34,7 @@
 
       <div class="col-md-6">
         <div class="col-md-3"><%= form.label :contact, class: "required" %></div>
-        <div class="col-md-6"><%= form.text_field :contact, id: :user_contact, :required => true %></div>
+        <div class="col-md-6"><%= form.text_field :contact, id: :user_contact, :required => true%></div>
       </div>
     </div>
     <br>
@@ -46,7 +46,7 @@
       </div>
       <div class="col-md-6">
         <div class="col-md-3"><%= form.label :password, class: "required" %></div>
-        <div class="col-md-6"><%= form.password_field :password_digest, id: :user_password_digest%></div>
+        <div class="col-md-6"><%= form.password_field :password, id: :user_password_digest%></div>
       </div>
     </div>
     <div class="row">

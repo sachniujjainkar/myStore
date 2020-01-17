@@ -1,0 +1,47 @@
+
+<body>
+
+  <%= render 'layouts/navigation' %>
+  <!--if login as Admin-->  
+  <% if logged_in? && current_user.admin? %>
+    <div class="panel-group">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Welcome to Admin panel</div>
+        <div class="panel-body">
+          <div class="container">
+            <%= yield %>
+          </div>
+        </div>    
+      </div>         
+   </div>
+  <% end %>
+  <% if logged_in? && !current_user.admin? %>
+    <div class="panel-group">
+      <div class="panel panel-primary ">
+        <div class="panel-heading">Welcome to MyShopee</div>
+        <div class="panel-body">
+          <div class="container">
+            <%= yield %>
+          </div>
+        </div>    
+      </div>         
+    </div>
+  <% end %>
+  <% if !logged_in?%>
+
+  
+    <div class="panel-group" style="background-image: url(/assets/img.jpg);background-size: cover;height: 550px;">
+      <div class="panel panel-primary" style="background-color: rgba(245, 245, 245, 0.5);">
+        <div class="panel-heading">MyShopee</div>
+        <div class="panel-body "  style="background: rgba(171, 205, 239, 0.1);">
+          <div class="container">   
+            <%= yield %>
+          </div>
+        </div>    
+      </div>         
+   </div>
+  <% end %>
+  
+  <%= render 'layouts/footer' %>
+  <br>
+</body>

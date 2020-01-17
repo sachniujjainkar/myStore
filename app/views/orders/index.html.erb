@@ -3,10 +3,14 @@
 <h1>Orders</h1>
 
 
-<Button class="btn btn-default float-right"><%= link_to 'New Order', new_order_path %></button>
+
+<button type="button" class="btn btn-default btn-sm">
+  <span class="glyphicon glyphicon-new-window"></span>
+  <%= link_to 'New Order', new_order_path %>
+</button>
+
 <hr>
 
-# Search for Orders
 <script>
   $(document).ready(function(){
       $('.search').on('keyup',function(){
@@ -24,9 +28,6 @@
 </script> 
 
 
-# <div class="form-group pull-right">
-#     <input type="text" class="search form-control" placeholder="Search Orders">
-# </div>
 
 <% if !logged_in? %> 
   
@@ -37,6 +38,8 @@
 <% else %>
   <% @orders = Order.where(:user_id => current_user.id)%>
 <% end %>
+
+
 
 <h2>Total Orders:<%= @orders.all.count %> </h2>
 <table class="table table-bordered" id="orderTable">
@@ -71,6 +74,7 @@
       
         </tr>
     <% end %>
+    
   </tbody>
 </table>
 

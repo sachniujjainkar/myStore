@@ -32,9 +32,6 @@ var user_id =  this.value;
 
 </script>
 
-<script type="text/javascript">
-    $('#div_id').html("<%= render :partial => 'my_partial' %>");
-</script>
 
 
 <%= form_with(model: order, local: true) do |form| %>
@@ -96,32 +93,8 @@ var user_id =  this.value;
   <div>
 
     <h3>Products</h3>
-
-    <%= form.fields_for :order_products do |f| %>
-      <div class="col-md-6">
-        <div class="field" >
-          <%= f.label :product_id %>
-          <%= f.select :product_id, options_for_select(Product.all.collect{|c| [c.name,c.id]}),:class=>"form-control" %>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="field">
-          <%= f.label :quntity %>
-          <%= f.text_field :quntity,class:"form-control" %>
-        </div>
-      </div> 
     
-    <% end %> 
-
-    <div id = "div_id">
-    
-
-    </div>
-    <%= link_to "Add Product", order, :remote => true %>
-
-
-    
-    
+    <%= link_to_add_fields "Add product", form,:order_products %>
 
   </div>    
 

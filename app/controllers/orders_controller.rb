@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  # before_action :require_user
+  before_action :require_user
+  # require './app/pdf/order_pdf'
+
   # before_action :require_same_user, only [:edit, :show, :update ,:destroy]
   
   # GET /orders
@@ -16,6 +18,15 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    @order = Order.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf=Prawn::Document.new
+        pdf.text "INVOICE", size: 30, style: :bold
+        send_data pdf.render
+      end
+    end
   end
 
   # GET /orders/new
@@ -23,7 +34,6 @@ class OrdersController < ApplicationController
     @products = Product.all
     @order = Order.new
     @order.order_products.new
-    byebug
   end
 
   # GET /orders/1/edit
@@ -35,7 +45,7 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-    byebug
+    
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
