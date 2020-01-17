@@ -7,8 +7,8 @@ $(document).on 'click', 'form .remove_fields', (event) ->
   $(this).closest('fieldset').hide()
   event.preventDefault()
 
-$(document).on 'click', 'form .add_fields', (event) ->
+$(document).on 'click', 'form .add_fields_new', (event) ->
   time = new Date().getTime()
   regexp = new RegExp($(this).data('id'), 'g')
   $(this).before($(this).data('fields').replace(regexp, time))
-  event.preventDefault()
+  event.preventDefault() 

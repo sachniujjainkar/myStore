@@ -18,17 +18,15 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-
+    @order = Order.find(params[:id])
     respond_to do |format|
-      # // some other formats like: format.html { render :show }
       format.html
       format.pdf do
-        pdf = Prawn::Document.new
-        pdf = OrderPdf.new
-        send_data pdf.render 
-       end
+        pdf=Prawn::Document.new
+        pdf.text "INVOICE", size: 30, style: :bold
+        send_data pdf.render
+      end
     end
-
   end
 
   # GET /orders/new
@@ -36,7 +34,6 @@ class OrdersController < ApplicationController
     @products = Product.all
     @order = Order.new
     @order.order_products.new
-    byebug
   end
 
   # GET /orders/1/edit
@@ -48,7 +45,7 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-    byebug
+    
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }

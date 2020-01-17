@@ -69,17 +69,13 @@
   
   <br>
   <div>
-    <h4>Products</h4>
-    <p>
+    <h4>Products</h4><p>
       <strong>Product:</strong>
       <%= @order.product_id %>
-     ,id<%= @order.order_products.first.product_id%>
-     <strong>Product Quntity:</strong>
-     <%= @order.order_products.first.quntity%>
-
-
-  </div>    
-  
+      <strong>id</strong>
+      <%= @order.order_products.first.product_id%>
+      <strong>Product Quntity:</strong>
+      <%= @order.order_products.first.quntity%> 
     </p>
   </div>
   <hr>
