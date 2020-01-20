@@ -100,7 +100,7 @@
 
       <h4><b>Sub Total:
       <%= @OrderTotal - ( @OrderTotal * (@order.discount / 100.0)) %> 
-      <%= @order.order_total = @OrderTotal%>
+      <% @order.order_total = @OrderTotal%>
       </b> </h4>
   </div>
   <hr>

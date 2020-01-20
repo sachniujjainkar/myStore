@@ -75,8 +75,13 @@
 
   <div class="field col-xs-6">
     <%= form.label :discount %>
-    <%= form.text_field :discount, class:"form-control" %>
-  </div>
+    <% if current_user.admin? %>
+      <%= form.text_field :discount, :class=>"form-control" %>
+    <% else %>
+      <%= form.text_field :discount, :value => "#{rand(1..20)}", :class=>"form-control", :readonly=>true %>
+      <small>You will get discount upto 20%</small>
+    <% end %>
+   </div>
 </div> 
 <hr>
 

@@ -4,15 +4,13 @@ class OrderPdf < Prawn::Document
     super(top_margin:70)
     @order = order
     content
-    items
-    items_table
 
     move_down 50
     stroke_horizontal_rule
     move_down 10
     text "Sub Total: #{@order.order_total}", style: :bold, align: :right
-    move_down 50
-    text "Thank you.", align: :right ,bounds: :bottom
+
+    text "Thank you.", align: :right
     text "(MyShopee)",align: :right
       
 
@@ -57,25 +55,12 @@ class OrderPdf < Prawn::Document
     
     text "Products", size: 15, style: :bold
    
-    
-    def items
-      move_down 10
-      table items_table do
-        row(0).font_style = :bold
-        columns(1..4).align = :right
-        self.row_colors = ['DDDDDD', 'FFFFFF']
-        self.header = true
-      end
+    move_down 10
+    [["Name", "Qty", "Price", "Total"]] +
+    @order.order_products.map do |item|
+      [item.product.name, item.quntity, item.product.price, item.quntity * item.product.price]
     end
-   
-    def items_table
-      [["Name", "Total","Qty", "Price", "Total"]] +
-      @order.order_products.map do |line_item|
-        [line_item.product.name, line_item.product.quantity,line_item.quntity, line_item.product.price,line_item.quntity * line_item.product.price]
-      end
-    end
-    
-
+     
   end
  
   

@@ -12,14 +12,33 @@ class Order < ApplicationRecord
   has_many :products, through: :order_products
   accepts_nested_attributes_for :order_products
 
-
   def update_inventory
     order = self
     byebug
-    order.order_products.each do |orderp| 
-         byebug
+    order.order_products.each do |o|
+      oldQ = o.product.quantity
+      unit = o.quntity
+      byebug
+      updated = oldQ - unit
+      o.product.quantity = updated
+      o.save
+      byebug
     end
-    byebug
-  end  
+  end 
+
+  @model.update_attributes(attributes)
 
 end
+
+
+# def update_inventory
+#   order = self
+#   byebug
+  
+#   oldQ = order.order_products.first.product.quantity
+#   unit = order.order_products.first.quntity
+#   byebug
+#   updated = oldQ - unit
+#   order.order_products.first.product.quantity = updated
+#   byebug
+# end
