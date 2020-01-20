@@ -1,10 +1,11 @@
 
 
 <script type="text/javascript">
-$(document).on("change", '#order_user_id', function() {
-var user_id =  this.value;
 
-//selectuser to get address list
+  $(document).on("change", '#order_user_id', function() {
+  var user_id =  this.value;
+
+  //selectuser to get address list
   $.ajax({
      url: "/users/"+user_id+"/get_addresses",
      type: "GET",
@@ -27,14 +28,13 @@ var user_id =  this.value;
      error: function(data) {
        alert("error after selecting user");
      }
-   });
-});
+    });
+    });
 
-</script>
+  </script>
 
 
-
-<%= form_with(model: order, local: true) do |form| %>
+  <%= form_with(model: order, local: true) do |form| %>
 
 <% if order.errors.any? %>
   <div id="error_explanation">
@@ -49,82 +49,64 @@ var user_id =  this.value;
 <% end %>
 
 
-  <div class="row">
-  
-    <h3>Order Details</h3>
-    
-    <div class="field col-xs-6">
-      <%= form.label :order_no %>
-      <%= form.text_field :order_no, id: :order_no,:value => "ORD-#{Order.last.id + 1}", :class=>"form-control",:required => true, :readonly => true%>
-      
-    </div>
+<div class="row">
+  <h3>Order Details</h3>
+  <div class="field col-xs-6">
+    <%= form.label :order_no %>
+    <%= form.text_field :order_no, id: :order_no,:value => "ORD-#{Order.last.id + 1}", :class=>"form-control",:required => true, :readonly => true%>  
+  </div>
 
-    <div class="field col-xs-6">
-      <%= form.label :delivery_date %>
-      <br>  
-      <br>
-      <%= form.date_select :delivery_date,selected: Date.today, min: 5.days.ago, max: 1.year.from_now ,:class=>"form-control"%>
-    </div>
+  <div class="field col-xs-6">
+    <%= form.label :delivery_date %>
+    <br>  
+    <br>
+    <%= form.date_select :delivery_date,selected: Date.today, min: 5.days.ago, max: 1.year.from_now ,:class=>"form-control"%>
+  </div>
 
-    <div class="field col-xs-6">
-      <%= form.label :special_instruction %>
-      <%= form.text_field :special_instruction, class:"form-control" %>
-    </div>
+  <div class="field col-xs-6">
+    <%= form.label :special_instruction %>
+    <%= form.text_field :special_instruction, class:"form-control" %>
+  </div>
 
-    <div class="field col-xs-6">
-      <%= form.label :tracking_number %>
-      <%= form.text_field :tracking_number, :value => "TR-#{rand(10..100)}-#{rand(100..1000)}", :class=>"form-control", :readonly=>true %>         
-    </div>
+  <div class="field col-xs-6">
+    <%= form.label :tracking_number %>
+    <%= form.text_field :tracking_number, :value => "TR-#{rand(10..100)}-#{rand(100..1000)}", :class=>"form-control", :readonly=>true %>         
+  </div>
 
-    <div class="field col-xs-6">
-      <%= form.label :order_total %>
-      <%= form.text_field :order_total, class:"form-control", readonly:false %>
-    </div>
+  <div class="field col-xs-6">
+    <%= form.label :discount %>
+    <%= form.text_field :discount, class:"form-control" %>
+  </div>
+</div> 
+<hr>
 
-    <div class="field col-xs-6">
-      <%= form.label :discount %>
-      <%= form.text_field :discount, class:"form-control" %>
-    </div>
-  </div> 
-  
+<!--Form for Product details-->
+<div>
   <div>
-    <hr>
-  <!--Form for Product details-->
-  <div>
-
     <h3>Products</h3>
-    
     <%= link_to_add_fields "Add product", form,:order_products %>
-
   </div>    
-
-  
+ 
   <div class="productDetails">
-   <div>
-   <h3>Products Details</h3>
-   
-   <p>selected products details with remove </p>
-  
+    <h3>Products Details</h3>
+    <p>selected products details with remove </p>
   </div>    
   
+</div>     
 
-   </div>     
-  <div class="CustomerDetails">
-    <hr>
-    <h3>Customer Details</h3>    
-      <div class="field">
-        <%= form.label :user_id %>
-        <%= form.text_field :user_id, :value=>current_user.id ,class:"form-control",readonly:true%>
-      </div>      
-      <div class="col-md-4">
-        <%= form.label :address_id, class: "required" %>
-        <%= form.grouped_collection_select :address_id, User.order(:id), :addresses, :id, :id, :line1, {:prompt => true}, { id: 'order_address_id'} %>
-        
-      </div>      
-
-      <!--Address Details-->
-      
-  </div>  
+<div class="CustomerDetails">
+  <hr>
+  <h3>Customer Details</h3>    
+    <div class="field">
+      <%= form.label :user_id %>
+      <%= form.text_field :user_id, :value=>current_user.id ,class:"form-control",readonly:true%>
+    </div>      
+    <div class="col-md-4">
+      <%= form.label :address_id, class: "required" %>
+      <%= form.grouped_collection_select :address_id, User.order(:id), :addresses, :id, :id, :line1, {:prompt => true}, { id: 'order_address_id'} %>  
+    </div>      
+    <!--Address Details--> 
+</div>  
 
   <div class="row">
     <%= form.submit :class => "btn btn-befault", method: :delete, data: { confirm: 'Confirm Order?' } %>

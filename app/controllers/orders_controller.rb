@@ -1,18 +1,11 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :require_user
-  # require './app/pdf/order_pdf'
+  require './app/pdf/order_pdf'
 
-  # before_action :require_same_user, only [:edit, :show, :update ,:destroy]
-  
   # GET /orders
   # GET /orders.json
   def index
     @orders = Order.all
-    # @orders = Order.all.paginate(page: params[:page], per_page:5)
-    # @orders = Order.paginate(page: params[:page], per_page:5)   
-   
- 
   end
 
   # GET /orders/1
@@ -22,8 +15,8 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        pdf=Prawn::Document.new
-        pdf.text "INVOICE", size: 30, style: :bold
+        pdf=OrderPdf.new(@order)
+        # pdf.text "INVOICE", size: 30, style: :bold
         send_data pdf.render
       end
     end
@@ -100,11 +93,4 @@ class OrdersController < ApplicationController
       params.require(:order).permit(:order_no, :delivery_date, :special_instruction, :tracking_number, :order_total, :discount,:user_id,:address_id, order_products_attributes: [:quntity, :product_id, :_destroy])
     end
 
-    # def require_same_user
-    #   if current_user != @user   
-    #     flash[:danger] = "You can only edit your own account"
-    #     redirect_to root_path
-    #   end
-    # end
-
-  end
+end
